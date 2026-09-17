@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navPele"
+            android:title="Produtos para Pele"
+            android:icon="@drawable/pele_icon"/>
+
+        <item
+            android:id="@+id/navRoupas"
+            android:title="Roupas"
+            android:icon="@drawable/roupas_icon"/>
+
+        <item
+            android:id="@+id/navPapelaria"
+            android:title="Itens de Papelaria"
+            android:icon="@drawable/papelaria_icon"/>
+
+        <item
+            android:id="@+id/navEletro"
+            android:title="Eletrodomésticos"
+            android:icon="@drawable/eletro_icon"/>
+    </group>
+</menu>
