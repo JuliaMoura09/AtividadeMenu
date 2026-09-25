@@ -6,6 +6,8 @@ import android.os.PersistableBundle
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.inputmethod.InputBinding
+import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -31,20 +33,25 @@ class MainActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
         //hide the status bar
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        WindowInsetsControllerCompat(window, window.decorView).hide(WindowInsetsCompat.Type.statusBars())
+        WindowInsetsControllerCompat(
+            window,
+            window.decorView
+        ).hide(WindowInsetsCompat.Type.statusBars())
 
         setSupportActionBar(binding.toolbar)
 
-        var toggle = ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar, R.string.navOpen,
-            R.string.navClose)
+        var toggle = ActionBarDrawerToggle(
+            this, binding.drawerLayout, binding.toolbar, R.string.navOpen,
+            R.string.navClose
+        )
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         //supportActionBar?.title = ""
         binding.navigationDrawer.setNavigationItemSelectedListener(this)
 
-        binding.bottomNavigation.setOnClickListener {item ->
-            when(item.itemId){
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
                 R.id.bottomCart -> openFragment(CartFragment())
                 R.id.bottomMenu -> openFragment(MenuFragment())
                 R.id.bottomProfile -> openFragment(ProfileFragment())
@@ -52,6 +59,23 @@ class MainActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
             }
             true
         }
+
+        fragmentManager = supportFragmentManager
+        openFragment(HomeFragment())
+
+        binding.fab.setOnClickListener {
+            Toast.makeText(this, "Categorias", Toast.LENGTH_SHORT).show()
+        }
+
+        onBackPressedDispatcher.addCallback(this){
+           if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
+               binding.drawerLayout.closeDrawer(GravityCompat.START)
+           }else{
+               finish()
+           }
+
+        }
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
